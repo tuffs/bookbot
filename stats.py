@@ -1,7 +1,27 @@
+import sys
+import os
+
+def get_args():
+    args = sys.argv
+    args_len = len(args)
+    if args_len > 1:
+        if os.path.exists(args[1]):
+            if os.path.isfile(args[1]):
+                return args[1]
+            else:
+                print("Usage: python3 main.py <path_to_book>")
+                sys.exit(1)
+        else:
+            print("Usage: python3 main.py <path_to_book>")
+            sys.exit(1)
+    else:
+        print("Usage: python3 main.py <path_to_book>")
+        sys.exit(1)
+
 def get_book_text(path_to_file):
-  with open(path_to_file) as f:
-    file_contents = f.read()
-    return file_contents
+    with open(path_to_file) as f:
+        file_contents = f.read()
+        return file_contents
 
 def get_word_count(book_text):
     words = book_text.split()
@@ -10,15 +30,15 @@ def get_word_count(book_text):
 
 def get_char_counts(book_file):
     with open(book_file, 'r') as f:
-      my_book = f.read()
-      char_list = list(my_book.lower())
-      char_count = {}
+        my_book = f.read()
+        char_list = list(my_book.lower())
+        char_count = {}
 
-      for char in char_list:
-          if char in char_count:
-            char_count[char] += 1
-          else:
-            char_count[char] = 1
+        for char in char_list:
+            if char in char_count:
+                char_count[char] += 1
+            else:
+                char_count[char] = 1
 
     return char_count
 
@@ -33,10 +53,7 @@ def character_count_dictionaries(book_file):
         new_dict = {"char": key, "num": value}
         list_of_dicts.append(new_dict)
 
-    # sorted_list_of_dicts = sorted(list_of_dicts, key=lambda x: x["num"], reverse=True)
     sorted_list_of_dicts = sorted(list_of_dicts, key=lambda n: n["num"], reverse=True)
     sorted_list_of_dicts = [d for d in sorted_list_of_dicts if d["char"].isalpha()]
 
-    # output results
-    print(sorted_list_of_dicts)
     return sorted_list_of_dicts
